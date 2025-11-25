@@ -1,0 +1,18 @@
+server:
+  port: 9090
+
+spring:
+  datasource:
+    # 驱动类名 (注意缩进：datasource比spring缩进2格，driver...比datasource缩进2格)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 数据库地址 (检查你的数据库名是否是 exam_system_db)
+    url: jdbc:mysql://localhost:3306/exam_system_db?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    # 账号
+    username: root
+    # 密码 (⚠️一定要改成你自己的MySQL密码！)
+    password: 123456
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
