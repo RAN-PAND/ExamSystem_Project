@@ -11,15 +11,49 @@
         router
         class="el-menu-vertical"
       >
-        <!-- 菜单项 -->
-        <el-menu-item index="/home/question">
+        <!-- 管理员 / 教师：题库管理 -->
+        <el-menu-item
+          v-if="user.role === 'admin' || user.role === 'teacher'"
+          index="/home/question"
+        >
           <el-icon><List /></el-icon>
           <span>题库管理</span>
         </el-menu-item>
-        
-        <el-menu-item index="/home/knowledge">
+
+        <!-- 管理员 / 教师：知识点管理 -->
+        <el-menu-item
+          v-if="user.role === 'admin' || user.role === 'teacher'"
+          index="/home/knowledge"
+        >
           <el-icon><Collection /></el-icon>
           <span>知识点管理</span>
+        </el-menu-item>
+
+        <!-- 管理员 / 教师：试卷管理 -->
+        <el-menu-item
+          v-if="user.role === 'admin' || user.role === 'teacher'"
+          index="/home/paper"
+        >
+          <el-icon><Document /></el-icon>
+          <span>试卷管理</span>
+        </el-menu-item>
+
+        <!-- 管理员 / 学生：学生模拟考试 -->
+        <el-menu-item
+          v-if="user.role === 'admin' || user.role === 'student'"
+          index="/home/exam-do"
+        >
+          <el-icon><Document /></el-icon>
+          <span>学生模拟考试</span>
+        </el-menu-item>
+
+        <!-- 管理员 / 学生：考试记录 -->
+        <el-menu-item
+          v-if="user.role === 'admin' || user.role === 'student'"
+          index="/home/exam-record"
+        >
+          <el-icon><Document /></el-icon>
+          <span>考试记录</span>
         </el-menu-item>
       </el-menu>
     </div>

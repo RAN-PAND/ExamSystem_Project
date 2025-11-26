@@ -26,18 +26,12 @@ public class QuestionController {
             @RequestParam(defaultValue = "1") Integer pageNum,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(required = false) String content,
-            @RequestParam(required = false) Integer knowledgeId,      // ✅ 新增
-            @RequestParam(required = false) Integer difficultyLevel) { // ✅ 新增
+            @RequestParam(required = false) Integer knowledgeId,      // 
+            @RequestParam(required = false) Integer difficultyLevel, // 
+            @RequestParam(required = false) Integer questionType) {  // 
         PageInfo<Question> pageInfo = questionService.findByPage(pageNum, pageSize,
-                content, knowledgeId, difficultyLevel);
+                content, knowledgeId, difficultyLevel, questionType);
         return Result.success(pageInfo);
-    }
-
-    // 新增
-    @PostMapping("/add")
-    public Result<?> add(@RequestBody Question question) {
-        questionService.add(question);
-        return Result.success("添加成功");
     }
 
     // 修改

@@ -53,6 +53,20 @@
           <el-option label="困难" :value="4" />
         </el-select>
 
+        <!-- 新增：题型筛选 -->
+        <el-select
+          v-model="searchQuestionType"
+          placeholder="选择题型"
+          clearable
+          style="width: 140px; margin-right: 10px;"
+          @change="loadData"
+        >
+          <el-option label="单选题" :value="1" />
+          <el-option label="判断题" :value="3" />
+          <el-option label="填空题" :value="4" />
+          <el-option label="简答题" :value="5" />
+        </el-select>
+
         <el-button type="primary" @click="loadData">查询</el-button>
       </div>
       
@@ -215,8 +229,9 @@ const total = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)
 const searchContent = ref('')
-const searchKnowledgeId = ref(null)  // 新增
-const searchDifficulty = ref(null)   // 新增
+const searchKnowledgeId = ref(null)    // 新增：知识点筛选
+const searchDifficulty = ref(null)     // 新增：难度筛选
+const searchQuestionType = ref(null)   // 新增：题型筛选
 const dialogVisible = ref(false)
 const knowledgeList = ref([])        // 新增：知识点列表
 const selectedIds = ref([])          // 新增：选中的题目ID
@@ -253,8 +268,9 @@ const loadData = () => {
       pageNum: currentPage.value,
       pageSize: pageSize.value,
       content: searchContent.value,
-      knowledgeId: searchKnowledgeId.value,      // 新增
-      difficultyLevel: searchDifficulty.value    // 新增
+      knowledgeId: searchKnowledgeId.value,      // 知识点筛选
+      difficultyLevel: searchDifficulty.value,   // 难度筛选
+      questionType: searchQuestionType.value     // 题型筛选
     }
   }).then(res => {
     tableData.value = res.data.list

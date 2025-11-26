@@ -34,12 +34,12 @@ public class QuestionService {
     @Autowired
     private ExamRecordMapper examRecordMapper;
 
-    // 分页查询
+    // 分页查询，支持按题型筛选
     public PageInfo<Question> findByPage(Integer pageNum, Integer pageSize,
                                          String content, Integer knowledgeId,
-                                         Integer difficultyLevel) {
+                                         Integer difficultyLevel, Integer questionType) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Question> list = questionMapper.findAll(content, knowledgeId, difficultyLevel);
+        List<Question> list = questionMapper.findAll(content, knowledgeId, difficultyLevel, questionType);
         return new PageInfo<>(list);
     }
 
@@ -100,7 +100,7 @@ public class QuestionService {
     public void exportExcel(HttpServletResponse response) {
         try {
             // 1. 查询所有题目（此处简单导出全部，可根据需要增加筛选条件）
-            List<Question> list = questionMapper.findAll(null, null, null);
+            List<Question> list = questionMapper.findAll(null, null, null, null);
 
             // 2. 转成 DTO 列表
             List<QuestionExcelDTO> dtoList = new ArrayList<>();

@@ -12,6 +12,9 @@ public class ExamRecord {
     // 学生用户ID（关联 sys_user.id）
     private Integer studentId;
 
+    // 试卷ID（关联 exam_paper.id）
+    private Integer paperId;
+
     // 题目ID（关联 question_bank.id）
     private Integer questionId;
 

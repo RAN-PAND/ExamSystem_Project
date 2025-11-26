@@ -23,4 +23,7 @@ public class Question {
     private Float difficultyP;   // 动态难度P值
     private Float discriminationD;// 区分度D值
     private Integer exposureCount;// 曝光率
+
+    // 题型：1-单选, 2-多选, 3-判断, 4-填空, 5-简答
+    private Integer questionType;
 }

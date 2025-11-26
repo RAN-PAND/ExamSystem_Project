@@ -25,21 +25,49 @@ const router = createRouter({
           path: 'knowledge',  // ✅ 新增知识点路由
           name: 'Knowledge',
           component: () => import('../views/KnowledgeView.vue')
+        },
+        {
+          path: 'paper',
+          name: 'ExamPaper',
+          component: () => import('../views/ExamPaperView.vue')
+        },
+        {
+          path: 'exam-do',
+          name: 'ExamDo',
+          component: () => import('../views/ExamDoView.vue')
+        },
+        {
+          path: 'exam-record',
+          name: 'ExamRecord',
+          component: () => import('../views/ExamRecordView.vue')
         }
       ]
     }
   ]
 })
 
-// 路由守卫：没登录不许进后台
+// 路由守卫：没登录不许进后台，并根据角色调整 /home 默认入口
 router.beforeEach((to, from, next) => {
-  const user = localStorage.getItem('user')
+  const userStr = localStorage.getItem('user')
+  const user = userStr ? JSON.parse(userStr) : null
+
   // 如果要去 /home 开头的页面，且没登录
   if (to.path.startsWith('/home') && !user) {
-    next('/') // 踢回登录页
-  } else {
-    next() // 放行
+    next('/')
+    return
   }
+
+  // 已登录用户访问 /home 根路径时，根据角色跳转到不同首页
+  if (to.path === '/home' && user) {
+    if (user.role === 'student') {
+      next('/home/exam-do')
+    } else {
+      next('/home/question')
+    }
+    return
+  }
+
+  next()
 })
 
 export default router
